@@ -20,4 +20,8 @@ app.get("/query", function(req, res){
     res.send(`<h1>Pasamos por query ${nombre} y ${apellido} y también ${edad}</h1>`);
 })
 
+app.get("/about", (req, res) => {
+  res.sendFile(__dirname + '/public/form.html')
+});
+
 app.listen(3000);
