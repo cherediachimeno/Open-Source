@@ -1,3 +1,5 @@
+mostrar();
+
 function insertar(){
     // GUARDAMOS INFORMACIÓN QUE EL USUARIO ESCRIBE EN EL FORMULARIO
     let especie = document.getElementById("especie").value;
@@ -37,4 +39,26 @@ function insertar(){
         document.getElementById("especies").innerHTML = mostrarPersonajes;
     });
 
+}
+
+function mostrar(){
+    fetch("/personajes", {
+        method: "GET", // método por donde pasaremos... Delete, put...
+        headers: {
+            "Content-Type": "application/json", // especificamos que utilizaremos JSON
+        }
+    })
+    .then(function (respuesta) {
+        return respuesta.json();
+    }).
+    then (function (datos){
+        let mostrarPersonajes = "";
+        for (let i = 0; i < datos.length; i++){
+            mostrarPersonajes += `
+            <h3>${datos[i].especie} ${datos[i].juego}</h3>
+            <img src="${datos[i].imagen}" alt="imagen" width="500" height="600"> 
+            `
+        }
+        document.getElementById("especies").innerHTML = mostrarPersonajes;
+    });
 }
