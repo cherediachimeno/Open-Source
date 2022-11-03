@@ -20,7 +20,7 @@ let personajes = [
     {
         especie: "Gerudo",
         juego: "Zelda",
-        imagen: "https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/styles/950/public/media/image/2017/05/zelda-breath-wild_0.jpg"
+        imagen: "https://oyster.ignimgs.com/mediawiki/apis.ign.com/the-legend-of-zelda-ocarina-of-time-3d/4/49/243175-nabooru_large.jpeg"
     },
     {
         especie: "Qunari",
@@ -46,10 +46,47 @@ app.post("/personajes", (req, res) => {
     };
     personajes.push(nuevoPersonaje);
     res.send(personajes);
+});
+
+app.put("/personajes", (req, res) => {
+    let especie = req.body.especie;
+    let juego = req.body.juego;
+    let imagen = req.body.imagen;
+    let coincidencia = false;
+
+    for (let i = 0; i < personajes.length; i++){
+        if (especie == personajes[i].especie) {
+            personajes[i].juego = juego;
+            personajes[i].imagen = imagen;
+            i = personajes.length;
+            coincidencia = true;
+            // break;
+        }
+    }
+
+    if (coincidencia){
+            res.send({ mensaje: "Se ha editado correctamente"});
+    } else {
+        res.send({ mensaje: "Error al editar"});
+    }
 })
 
+app.delete("/personajes", (req, res) => {
+    let especie = req.body.especie;
+    let coincidencia = false;
 
+    for (let i = 0; i < personajes.length; i++){
+        if (especie == personajes[i].especie){
+            personajes.splice(i, 1);
+            coincidencia = true;
+            i = personajes.length;
+        }
+    }
 
+    coincidencia
+    ? res.send(personajes)
+    : res.send({ mensaje: "No existe este personajes"});
 
+});
 
 app.listen(process.env.PORT || 3000);

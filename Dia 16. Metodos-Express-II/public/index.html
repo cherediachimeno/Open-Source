@@ -7,11 +7,21 @@
     <title>Document</title>
 </head>
 <body>
-    <h5>Añadir nuevas especies al array</h5>
+    <h5>Añadir nuevas especies</h5>
     <input type="text" placeholder="especie" id="especie"/>
     <input type="text" placeholder="juego" id="juego"/>
     <input type="text" placeholder="imagen" id="img"/>
     <button onclick="insertar()">Añadir</button>
+
+    <h5>Editar especies</h5>
+    <input type="text" placeholder="especie" id="especieEditar"/>
+    <input type="text" placeholder="juego" id="juegoEditar"/>
+    <input type="text" placeholder="imagen" id="imgEditar"/>
+    <button onclick="editar()">Editar</button>
+
+    <h5>Borrar especies</h5>
+    <input type="text" placeholder="especie" id="especieBorrar"/>
+    <button onclick="borrar()">Borrar</button>
 
     <div id="especies" style="display:flex; flex-direction: row; flex-wrap: wrap">
         <h5>Listado de especies en el array</h5>

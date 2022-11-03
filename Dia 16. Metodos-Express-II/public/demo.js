@@ -29,14 +29,55 @@ function insertar(){
         return respuesta.json();
     }).
     then (function (datos){
-        let mostrarPersonajes = "";
-        for (let i = 0; i < datos.length; i++){
-            mostrarPersonajes += `
-            <h3>${datos[i].especie} ${datos[i].juego}</h3>
-            <img src="${datos[i].imagen}" alt="imagen" width="500" height="600"> 
-            `
-        }
-        document.getElementById("especies").innerHTML = mostrarPersonajes;
+        mostrar();
+    });
+}
+
+function editar(){
+    let especie = document.getElementById("especieEditar").value;
+    let juego = document.getElementById("juegoEditar").value;
+    let imagen = document.getElementById("imgEditar").value;
+
+    let nuevo = {
+        especie: especie,
+        juego: juego,
+        imagen: imagen,
+    };
+
+    fetch("/personajes", {
+        method: "PUT", 
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(nuevo), 
+    })
+    .then(function (respuesta) {
+        return respuesta.json();
+    }).
+    then (function (datos){
+        mostrar();
+    });
+}
+
+
+function borrar(){
+    let especie = document.getElementById("especieBorrar").value;
+    let nuevo = {
+        especie: especie,
+    };
+
+    fetch("/personajes", {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json", // especificamos que utilizaremos JSON
+        },
+        body: JSON.stringify(nuevo), 
+    })
+    .then(function (respuesta) {
+        return respuesta.json();
+    }).
+    then (function (datos){
+        mostrar();
     });
 }
 
@@ -54,8 +95,9 @@ function mostrar(){
         let mostrarPersonajes = "";
         for (let i = 0; i < datos.length; i++){
             mostrarPersonajes += `
-            <div class="ficha" style="display: flex; flex-direction: column; background-color: grey; border: 2px black solid; margin: 2px; padding: 2px">
-            <h3>${datos[i].especie} ${datos[i].juego}</h3>
+            <div class="ficha" style="text-align: center; display: flex; flex-direction: column; background-color: rgb(212, 184, 168); border: 2px black solid; margin: 2px; padding: 2px">
+            <h3>${datos[i].especie}</h3>
+            <p> ${datos[i].juego}</p>
             <img src="${datos[i].imagen}" alt="imagen" width="500" height="600"> 
             </div>
             `
